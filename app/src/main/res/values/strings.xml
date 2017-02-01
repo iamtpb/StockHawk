@@ -41,6 +41,8 @@
     <string name="cd_stock_decrement">Stock value decreased by %s</string>
     <string name="cd_add_new_stock">Add new Stock.</string>
     <string name="cd_display_mode">Toggle display mode between absolute and percentage values.</string>
+    <string name="cd_display_mode_change">Display mode changed to %s</string>
+
 
     <string name="chart_legend_stock_data">Stock Data</string>
 </resources>
