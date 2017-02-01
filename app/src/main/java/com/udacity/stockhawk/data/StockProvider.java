@@ -166,7 +166,7 @@ public class StockProvider extends ContentProvider {
                 int returnCount = 0;
                 try {
                     for (ContentValues value : values) {
-                        db.insert(
+                         db.insert(
                                 Contract.Quote.TABLE_NAME,
                                 null,
                                 value
