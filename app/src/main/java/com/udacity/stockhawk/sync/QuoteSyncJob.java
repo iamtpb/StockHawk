@@ -83,7 +83,8 @@ public final class QuoteSyncJob {
                     float price = quote.getPrice().floatValue();
                     float change = quote.getChange().floatValue();
                     float percentChange = quote.getChangeInPercent().floatValue();
-
+                    float low = (quote.getDayLow()!=null)? quote.getDayLow().floatValue() : -1;
+                    float high = (quote.getDayHigh()!=null)? quote.getDayHigh().floatValue() : -1;
                     // WARNING! Don't request historical data for a stock that doesn't exist!
                     // The request will hang forever X_x
                     List<HistoricalQuote> history = stock.getHistory(from, to, Interval.WEEKLY);
@@ -103,10 +104,9 @@ public final class QuoteSyncJob {
                     quoteCV.put(Contract.Quote.COLUMN_PRICE, price);
                     quoteCV.put(Contract.Quote.COLUMN_PERCENTAGE_CHANGE, percentChange);
                     quoteCV.put(Contract.Quote.COLUMN_ABSOLUTE_CHANGE, change);
-
-
                     quoteCV.put(Contract.Quote.COLUMN_HISTORY, historyBuilder.toString());
-
+                    quoteCV.put(Contract.Quote.COLUMN_DAY_HIGH, high);
+                    quoteCV.put(Contract.Quote.COLUMN_DAY_LOW, low);
                     quoteCVs.add(quoteCV);
 
                 }catch(Exception ex){

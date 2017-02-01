@@ -33,4 +33,12 @@
     <string name="toast_no_connectivity">Will refresh when network available.</string>
     <string name="toast_symbol_not_found">Stock Symbol %s was not found.</string>
 
+    <string name="cd_detail_activity">Stock details of %s</string>
+    <string name="cd_day_lowest">Day low stock value %s</string>
+    <string name="cd_day_highest">Day high stock value %s</string>
+    <string name="cd_stock_price">Stock price %s</string>
+    <string name="cd_stock_increment">Stock value increased by %s</string>
+    <string name="cd_stock_decrement">Stock value decreased by %s</string>
+
+    <string name="chart_legend_stock_data">Stock Data</string>
 </resources>
