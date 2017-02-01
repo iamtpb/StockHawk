@@ -13,7 +13,7 @@ class DbHelper extends SQLiteOpenHelper {
 
 
     private static final String NAME = "StockHawk.db";
-    private static final int VERSION = 2;
+    private static final int VERSION = 4;
 
 
     DbHelper(Context context) {

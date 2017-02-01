@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -20,12 +21,15 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -127,19 +131,26 @@ public class ActivityDetail extends AppCompatActivity implements LoaderManager.L
         List<Entry> dataPairs = result.second;
         Long referenceTime = result.first;
         LineDataSet dataSet = new LineDataSet(dataPairs, "");
+
         dataSet.setColor(white);
-        //dataSet.setLineWidth(2f);
         dataSet.setDrawHighlightIndicators(false);
         dataSet.setCircleColor(colorPrimary);
         dataSet.setHighLightColor(white);
         dataSet.setValueTextColor(white);
-        //dataSet.setDrawValues(false);
+        dataSet.setDrawValues(true);
 
         LineData lineData = new LineData(dataSet);
         stockChart.setData(lineData);
 
         XAxis xAxis = stockChart.getXAxis();
-        xAxis.setEnabled(false);
+        // TODO: Create a formatter implementing IValueFormatter
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return getDate((long)value, "dd/MM/yyyy");
+            }
+        });
+        xAxis.setEnabled(true);
 
         YAxis yAxisLeft = stockChart.getAxisLeft();
         yAxisLeft.setEnabled(true);
@@ -151,26 +162,15 @@ public class ActivityDetail extends AppCompatActivity implements LoaderManager.L
         legend.setEnabled(false);
 
 
-       /* stockChart.getXAxis().setGridColor(white);
+       /*
+        stockChart.getXAxis().setGridColor(white);
         stockChart.getAxisLeft().setGridColor(white);
         stockChart.getAxisRight().setGridColor(white);
         stockChart.getXAxis().setTextColor(white);
+        */
         stockChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        stockChart.getAxisLeft().setTextColor(white);
-        stockChart.getAxisRight().setTextColor(white);
-        stockChart.setData(new LineData(xVals, lineDataSet));
-        stockChart.getLegend().setTextColor(white);
-        //stockChart.setDescription("");
-        stockChart.invalidate();
-*/
-
-     /*   stockChart.setDragEnabled(false);
-        stockChart.setScaleEnabled(false);
-        stockChart.setDragDecelerationEnabled(false);
-        stockChart.setPinchZoom(false);
-        stockChart.setDoubleTapToZoomEnabled(true); */
         Description description = new Description();
-        description.setText(" ");
+        description.setText("");
         stockChart.setDescription(description);
         stockChart.setExtraOffsets(10, 0, 0, 10);
         stockChart.animateX(1500, Easing.EasingOption.Linear);
@@ -188,11 +188,19 @@ public class ActivityDetail extends AppCompatActivity implements LoaderManager.L
             stockPrice.add(Float.valueOf(entry[1]));
         }
         Collections.reverse(timeData);
+
         Collections.reverse(stockPrice);
-        Long referenceTime = timeData.get(0);
+        Long referenceTime = 0l; // Set Reference to 0 just to later convert it directly into Date
         for (int i = 0; i < timeData.size(); i++) {
             entries.add(new Entry(timeData.get(i) - referenceTime, stockPrice.get(i)));
         }
         return new Pair<>(referenceTime, entries);
+    }
+
+    public static String getDate(long milliSeconds, String dateFormat) {
+        SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliSeconds);
+        return formatter.format(calendar.getTime());
     }
 }
