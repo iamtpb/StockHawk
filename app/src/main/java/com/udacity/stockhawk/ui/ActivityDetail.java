@@ -38,7 +38,6 @@ import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
 public class ActivityDetail extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     @BindView(R.id.tvName)
     TextView tvStockName;
@@ -54,7 +53,7 @@ public class ActivityDetail extends AppCompatActivity implements LoaderManager.L
     LineChart stockChart;
     private Uri uriStock;
     @BindColor(R.color.black)
-    public int white;
+    public int black;
     @BindColor(R.color.colorPrimary)
     public int colorPrimary;
 
@@ -63,7 +62,6 @@ public class ActivityDetail extends AppCompatActivity implements LoaderManager.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
-       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         uriStock = getIntent().getData();
         getSupportLoaderManager().initLoader(0,null,this);
     }
@@ -130,19 +128,14 @@ public class ActivityDetail extends AppCompatActivity implements LoaderManager.L
         List<Entry> dataPairs = result.second;
         Long referenceTime = result.first;
         LineDataSet dataSet = new LineDataSet(dataPairs, "");
-
-        dataSet.setColor(white);
-        dataSet.setDrawHighlightIndicators(false);
-        dataSet.setCircleColor(colorPrimary);
-        dataSet.setHighLightColor(white);
-        dataSet.setValueTextColor(white);
+        dataSet.setColor(black);
+        dataSet.setDrawCircles(false);
+        dataSet.setHighLightColor(colorPrimary);
+        dataSet.setValueTextColor(black);
         dataSet.setDrawValues(true);
-
         LineData lineData = new LineData(dataSet);
         stockChart.setData(lineData);
-
         XAxis xAxis = stockChart.getXAxis();
-        // TODO: Create a formatter implementing IValueFormatter
         xAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
@@ -150,29 +143,22 @@ public class ActivityDetail extends AppCompatActivity implements LoaderManager.L
             }
         });
         xAxis.setEnabled(true);
-
+        xAxis.setLabelCount(6,true);
+        xAxis.setTextSize(6f);
+        xAxis.setDrawGridLines(false);
         YAxis yAxisLeft = stockChart.getAxisLeft();
         yAxisLeft.setEnabled(true);
-
+        yAxisLeft.setDrawGridLines(false);
         YAxis yAxisRight = stockChart.getAxisRight();
         yAxisRight.setEnabled(false);
-
         Legend legend = stockChart.getLegend();
         legend.setEnabled(false);
-
-/*
-        stockChart.getXAxis().setGridColor(white);
-        stockChart.getAxisLeft().setGridColor(white);
-        stockChart.getAxisRight().setGridColor(white);
-        stockChart.getXAxis().setTextColor(white);
-*/
 
         Description description = new Description();
         description.setText("");
         stockChart.setDescription(description);
         stockChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        stockChart.setExtraOffsets(10, 0, 0, 10);
-        stockChart.animateX(1500, Easing.EasingOption.Linear);
+        stockChart.animateX(1000, Easing.EasingOption.EaseInOutCirc);
     }
 
     public Pair<Long, List<Entry>> getFormattedStockHistory(String history) {
@@ -197,7 +183,7 @@ public class ActivityDetail extends AppCompatActivity implements LoaderManager.L
     }
 
     public static String getDate(long milliSeconds, String dateFormat) {
-        SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
+        SimpleDateFormat formatter = new SimpleDateFormat(dateFormat,Locale.getDefault());
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(milliSeconds);
         return formatter.format(calendar.getTime());

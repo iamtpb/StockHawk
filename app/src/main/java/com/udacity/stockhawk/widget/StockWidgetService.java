@@ -74,37 +74,32 @@ public class StockWidgetService extends RemoteViewsService {
             String stockSymbol = data.getString(Contract.Quote.POSITION_SYMBOL);
             Float stockPrice = data.getFloat(Contract.Quote.POSITION_PRICE);
             Float absoluteChange = data.getFloat(Contract.Quote.POSITION_ABSOLUTE_CHANGE);
-            int backgroundDrawable;
+            DecimalFormat dollarFormat =
+                    (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.getDefault());
+            DecimalFormat dollarFormatWithPlus =
+                    (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.getDefault());
 
-            DecimalFormat dollarFormat = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.getDefault());
-            DecimalFormat dollarFormatWithPlus = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.getDefault());
             dollarFormatWithPlus.setPositivePrefix("+");
             dollarFormatWithPlus.setMaximumFractionDigits(2);
             dollarFormat.setMaximumFractionDigits(2);
             dollarFormat.setMinimumFractionDigits(2);
             dollarFormatWithPlus.setMinimumFractionDigits(2);
 
-            if (absoluteChange > 0) {
-                backgroundDrawable = R.drawable.percent_change_pill_green;
-            } else {
-                backgroundDrawable = R.drawable.percent_change_pill_red;
-            }
+            int backgroundDrawable = absoluteChange > 0 ?
+                    R.drawable.percent_change_pill_green : R.drawable.percent_change_pill_red;
 
             remoteViews.setTextViewText(R.id.symbol, stockSymbol);
-            remoteViews.setTextViewTextSize(R.id.symbol, TypedValue.COMPLEX_UNIT_DIP, 15);
-           // remoteViews.setTextColor(R.id.symbol,getResources().getColor(R.color.colorAccent));
+            remoteViews.setTextViewTextSize(R.id.symbol, TypedValue.COMPLEX_UNIT_DIP, 14);
             remoteViews.setTextViewText(R.id.price, dollarFormat.format(stockPrice));
-            remoteViews.setTextViewTextSize(R.id.price, TypedValue.COMPLEX_UNIT_DIP, 15);
-           // remoteViews.setTextColor(R.id.price,getResources().getColor(R.color.white));
+            remoteViews.setTextViewTextSize(R.id.price, TypedValue.COMPLEX_UNIT_DIP, 14);
             remoteViews.setTextViewText(R.id.change, dollarFormatWithPlus.format(absoluteChange));
-            remoteViews.setTextViewTextSize(R.id.change, TypedValue.COMPLEX_UNIT_DIP, 15);
+            remoteViews.setTextViewTextSize(R.id.change, TypedValue.COMPLEX_UNIT_DIP, 14);
             remoteViews.setInt(R.id.change, "setBackgroundResource", backgroundDrawable);
-           // remoteViews.setInt(R.id.list_item_quote, "setBackgroundResource", R.color.material_grey_dark);
 
             Uri stockUri = Contract.Quote.makeUriForStock(stockSymbol);
-            final Intent fillIntent = new Intent()
+            final Intent fillInIntent = new Intent()
                     .setData(stockUri);
-            remoteViews.setOnClickFillInIntent(R.id.list_item_quote, fillIntent);
+            remoteViews.setOnClickFillInIntent(R.id.list_item_quote, fillInIntent);
             return remoteViews;
 
         }

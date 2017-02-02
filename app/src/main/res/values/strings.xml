@@ -50,4 +50,8 @@
     <string name="empty_stock_list">No stocks added to list</string>
     <string name="widget_label">Stock Details</string>
 
+    <string name="label_day_low" translatable="true">Day Low</string>
+    <string name="label_day_high" translatable="true">Day High</string>
+    <string name="label_stock_price" translatable="true">Stock Price</string>
+
 </resources>
