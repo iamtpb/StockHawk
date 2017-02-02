@@ -4,8 +4,6 @@
     <string name="pref_stocks_initialized_key" translatable="false">initialized</string>
 
     <string name="pref_stocks_key" translatable="false">stocks</string>
-
-
     <string name="pref_display_mode_key" translatable="false">displayMode</string>
     <string name="pref_display_mode_default" translatable="false">@string/pref_display_mode_percentage_key</string>
 
@@ -16,10 +14,7 @@
     <string name="default_stocks_apple" translatable="false">AAPL</string>
     <string name="default_stocks_microsoft" translatable="false">MSFT</string>
     <string name="default_stocks_facebook" translatable="false">FB</string>
-
-
     <string name="action_change_units" translatable="false">@string/pref_display_mode_key</string>
-
 
     <string name="dialog_title">Add Stock</string>
     <string name="dialog_hint">Symbol (e.g. GOOG)</string>
@@ -46,7 +41,7 @@
 
     <string name="chart_legend_stock_data">Stock Data</string>
 
-    <string name="widget_cd">Stock hawk widget</string>
+    <string name="cd_widget">StockHawk Widget</string>
     <string name="empty_stock_list">No stocks added to list</string>
     <string name="widget_label">Stock Details</string>
 

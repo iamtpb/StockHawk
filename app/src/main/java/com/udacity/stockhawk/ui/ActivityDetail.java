@@ -104,7 +104,7 @@ public class ActivityDetail extends AppCompatActivity implements LoaderManager.L
                         String.format(getString(R.string.cd_stock_decrement), tvStockChange.getText()));
             }
 
-            if(low != -1) {
+            if(low != -1 && high != -1) {
                 tvStockHigh.setText(dollarFormat.format(high));
                 tvStockHigh.setContentDescription(String.format(getString(R.string.cd_day_highest), tvStockHigh.getText()));
                 tvStockHigh.setVisibility(View.VISIBLE);
@@ -175,7 +175,7 @@ public class ActivityDetail extends AppCompatActivity implements LoaderManager.L
         Collections.reverse(timeData);
 
         Collections.reverse(stockPrice);
-        Long referenceTime = 0l; // Set Reference to 0 just to later convert it directly into Date
+        Long referenceTime = 0L; // Set Reference to 0 just to later convert it directly into Date
         for (int i = 0; i < timeData.size(); i++) {
             entries.add(new Entry(timeData.get(i) - referenceTime, stockPrice.get(i)));
         }
