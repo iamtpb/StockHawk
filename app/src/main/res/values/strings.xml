@@ -45,4 +45,9 @@
 
 
     <string name="chart_legend_stock_data">Stock Data</string>
+
+    <string name="widget_cd">Stock hawk widget</string>
+    <string name="empty_stock_list">No stocks added to list</string>
+    <string name="widget_label">Stock Details</string>
+
 </resources>

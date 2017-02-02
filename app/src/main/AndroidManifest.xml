@@ -39,6 +39,23 @@
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <activity android:name=".ui.ActivityDetail"></activity>
-    </application>
 
+
+        <receiver
+            android:name="com.udacity.stockhawk.widget.StockWidgetProvider"
+            android:label="@string/widget_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="com.shrreya.stockhawk.ACTION_DATA_UPDATED"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/stock_widget_provider_info"/>
+        </receiver>
+
+        <service
+            android:name="com.udacity.stockhawk.widget.StockWidgetService"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+    </application>
 </manifest>

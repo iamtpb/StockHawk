@@ -53,7 +53,7 @@ public class ActivityDetail extends AppCompatActivity implements LoaderManager.L
     @BindView(R.id.chartStock)
     LineChart stockChart;
     private Uri uriStock;
-    @BindColor(R.color.white)
+    @BindColor(R.color.black)
     public int white;
     @BindColor(R.color.colorPrimary)
     public int colorPrimary;
@@ -122,9 +122,7 @@ public class ActivityDetail extends AppCompatActivity implements LoaderManager.L
     }
 
     @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-
-    }
+    public void onLoaderReset(Loader<Cursor> loader) {  }
 
     private void drawChart(String historyData) {
         Pair<Long, List<Entry>> result = getFormattedStockHistory(historyData);
@@ -161,17 +159,17 @@ public class ActivityDetail extends AppCompatActivity implements LoaderManager.L
         Legend legend = stockChart.getLegend();
         legend.setEnabled(false);
 
-
-       /*
+/*
         stockChart.getXAxis().setGridColor(white);
         stockChart.getAxisLeft().setGridColor(white);
         stockChart.getAxisRight().setGridColor(white);
         stockChart.getXAxis().setTextColor(white);
-        */
-        stockChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+*/
+
         Description description = new Description();
         description.setText("");
         stockChart.setDescription(description);
+        stockChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         stockChart.setExtraOffsets(10, 0, 0, 10);
         stockChart.animateX(1500, Easing.EasingOption.Linear);
     }

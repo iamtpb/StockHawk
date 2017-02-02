@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
+    android:id="@+id/list_item_quote"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingStart="16dp"
@@ -14,6 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="start|center_vertical"
+        android:textColor="@color/black"
         tools:text="GOOG" />
 
     <LinearLayout
@@ -28,7 +30,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10sp"
-            tools:text="1000.00" />
+            tools:text="1000.00"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/change"
@@ -41,3 +44,4 @@
             tools:text="100%" />
     </LinearLayout>
 </LinearLayout>
+
