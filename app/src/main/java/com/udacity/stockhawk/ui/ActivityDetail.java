@@ -63,6 +63,7 @@ public class ActivityDetail extends AppCompatActivity implements LoaderManager.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
+       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         uriStock = getIntent().getData();
         getSupportLoaderManager().initLoader(0,null,this);
     }
